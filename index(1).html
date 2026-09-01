@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashford College &mdash; Enrollment Registration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#152A47;
+    --navy-deep:#0E1D33;
+    --parchment:#F2ECDC;
+    --parchment-2:#E9E0C8;
+    --brass:#A9822C;
+    --brass-light:#C9A75B;
+    --forest:#2F4A3C;
+    --brick:#8A342A;
+    --ink:#26241F;
+    --ink-soft:#544F42;
+    --white:#FFFDF8;
+    --radius:2px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:'Source Sans 3', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+  }
+  h1,h2,h3,.display{
+    font-family:'Libre Caslon Display', 'Source Serif 4', serif;
+    font-weight:400;
+    color:var(--navy);
+    margin:0;
+  }
+  a{color:inherit;}
+  img,svg{display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+
+  /* ---------- Reduced motion ---------- */
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- Header ---------- */
+  header.site{
+    background:var(--navy);
+    color:var(--parchment);
+    border-bottom:3px solid var(--brass);
+  }
+  .site-nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 0;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    text-decoration:none;
+    color:var(--parchment);
+  }
+  .brand-mark{width:40px;height:40px;flex:none;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.15;}
+  .brand-text .name{font-family:'Libre Caslon Display', serif;font-size:1.15rem;letter-spacing:.02em;}
+  .brand-text .est{font-size:.72rem;color:var(--brass-light);letter-spacing:.08em;}
+  nav.links{display:flex;gap:34px;font-size:.95rem;}
+  nav.links a{
+    text-decoration:none;
+    color:var(--parchment);
+    padding-bottom:4px;
+    border-bottom:1px solid transparent;
+  }
+  nav.links a:hover, nav.links a:focus-visible{border-bottom-color:var(--brass-light);}
+  .nav-cta{
+    background:var(--brass);
+    color:var(--navy-deep);
+    padding:9px 20px;
+    border-radius:var(--radius);
+    text-decoration:none;
+    font-weight:600;
+    font-size:.92rem;
+  }
+  .nav-cta:hover{background:var(--brass-light);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:
+      radial-gradient(ellipse at 15% 20%, rgba(169,130,44,.10), transparent 55%),
+      var(--navy-deep);
+    color:var(--parchment);
+    padding:96px 0 110px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    right:-120px; top:-120px;
+    width:420px;height:420px;
+    border:1px solid rgba(201,167,91,.18);
+    border-radius:50%;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:56px;
+    align-items:center;
+    position:relative;
+  }
+  .kicker-line{
+    display:flex; align-items:center; gap:12px;
+    color:var(--brass-light);
+    font-size:.85rem;
+    margin-bottom:22px;
+  }
+  .kicker-line .rule{width:36px;height:1px;background:var(--brass-light);}
+  .hero h1{
+    font-size:3.2rem;
+    line-height:1.08;
+    max-width:11ch;
+    color:var(--white);
+  }
+  .hero p.lede{
+    margin-top:22px;
+    max-width:46ch;
+    color:#D8D1BC;
+    font-size:1.08rem;
+  }
+  .hero-actions{margin-top:36px;display:flex;gap:16px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--brass);
+    color:var(--navy-deep);
+    border:none;
+    padding:14px 28px;
+    font-size:1rem;
+    font-weight:600;
+    border-radius:var(--radius);
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-block;
+  }
+  .btn-primary:hover{background:var(--brass-light);}
+  .btn-ghost{
+    border:1px solid rgba(242,236,220,.4);
+    color:var(--parchment);
+    padding:14px 28px;
+    border-radius:var(--radius);
+    text-decoration:none;
+    font-size:1rem;
+  }
+  .btn-ghost:hover{border-color:var(--brass-light); color:var(--brass-light);}
+
+  .hero-panel{
+    background:var(--parchment);
+    color:var(--ink);
+    padding:34px;
+    border-radius:var(--radius);
+    border:1px solid var(--parchment-2);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.45);
+  }
+  .hero-panel .term{
+    font-size:.78rem;
+    letter-spacing:.03em;
+    color:var(--ink-soft);
+  }
+  .hero-panel .figure{
+    font-family:'Libre Caslon Display', serif;
+    font-size:2.6rem;
+    color:var(--navy);
+    margin:6px 0 18px;
+  }
+  .hero-panel hr{border:none;border-top:1px solid var(--parchment-2); margin:18px 0;}
+  .panel-row{display:flex;justify-content:space-between;font-size:.92rem;padding:7px 0;}
+  .panel-row span:first-child{color:var(--ink-soft);}
+
+  /* ---------- Steps section ---------- */
+  .steps{padding:88px 0 64px;}
+  .section-head{max-width:56ch; margin-bottom:52px;}
+  .section-head .eyebrow{
+    color:var(--brass);
+    font-size:.85rem;
+    margin-bottom:10px;
+  }
+  .section-head h2{font-size:2.1rem;}
+  .section-head p{margin-top:14px; color:var(--ink-soft); font-size:1.02rem;}
+
+  .step-list{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
+    border-top:1px solid var(--parchment-2);
+  }
+  .step{
+    padding:30px 28px 30px 0;
+    border-right:1px solid var(--parchment-2);
+  }
+  .step:last-child{border-right:none;}
+  .step .num{
+    font-family:'Libre Caslon Display', serif;
+    color:var(--brass);
+    font-size:1.6rem;
+    margin-bottom:14px;
+    display:block;
+  }
+  .step h3{font-size:1.15rem; margin-bottom:10px;}
+  .step p{color:var(--ink-soft); font-size:.95rem; margin:0;}
+
+  /* ---------- Register section ---------- */
+  .register{
+    padding:96px 0 120px;
+    background:
+      linear-gradient(var(--parchment), var(--parchment)) padding-box,
+      var(--parchment);
+    position:relative;
+  }
+  .register-grid{
+    display:grid;
+    grid-template-columns:.85fr 1.15fr;
+    gap:70px;
+    align-items:start;
+  }
+  .register-aside .eyebrow{color:var(--brass); font-size:.85rem; margin-bottom:10px;}
+  .register-aside h2{font-size:2rem; max-width:14ch;}
+  .register-aside p{color:var(--ink-soft); margin-top:16px; max-width:38ch;}
+  .aside-list{list-style:none; margin:32px 0 0; padding:0;}
+  .aside-list li{
+    display:flex; gap:12px;
+    padding:14px 0;
+    border-top:1px solid var(--parchment-2);
+    font-size:.92rem;
+    color:var(--ink-soft);
+  }
+  .aside-list li:last-child{border-bottom:1px solid var(--parchment-2);}
+  .aside-list .mark{color:var(--forest); flex:none;}
+
+  .form-card{
+    background:var(--white);
+    border:1px solid var(--parchment-2);
+    border-radius:var(--radius);
+    padding:44px;
+    position:relative;
+  }
+  .form-card::before{
+    content:"";
+    position:absolute; inset:10px;
+    border:1px solid var(--parchment-2);
+    pointer-events:none;
+  }
+  .form-card-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-bottom:30px;
+    padding-bottom:20px;
+    border-bottom:2px solid var(--navy);
+  }
+  .form-card-head h3{font-size:1.3rem;}
+  .form-card-head .code{font-size:.78rem; color:var(--ink-soft); letter-spacing:.04em;}
+
+  .field{margin-bottom:24px; position:relative;}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  label{
+    display:block;
+    font-size:.86rem;
+    color:var(--navy);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  label .opt{color:var(--ink-soft); font-weight:400; font-style:italic;}
+  label .req{color:var(--brick); margin-left:2px;}
+  input[type=text], input[type=tel], input[type=email], select{
+    width:100%;
+    padding:12px 14px;
+    font-size:1rem;
+    font-family:inherit;
+    color:var(--ink);
+    background:var(--white);
+    border:1px solid #C9C2AC;
+    border-radius:var(--radius);
+    outline:none;
+  }
+  input:focus-visible, select:focus-visible{
+    border-color:var(--navy);
+    box-shadow:0 0 0 3px rgba(21,42,71,.12);
+  }
+  input[aria-invalid="true"]{
+    border-color:var(--brick);
+    background:#FCF4F2;
+  }
+  input[aria-invalid="true"]:focus-visible{
+    box-shadow:0 0 0 3px rgba(138,52,42,.14);
+  }
+  .error-msg{
+    display:none;
+    align-items:center;
+    gap:6px;
+    color:var(--brick);
+    font-size:.82rem;
+    margin-top:7px;
+  }
+  .error-msg.show{display:flex;}
+  .error-msg svg{width:14px;height:14px;flex:none;}
+  .hint{font-size:.8rem; color:var(--ink-soft); margin-top:7px;}
+
+  select{appearance:none; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23544F42' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>"); background-repeat:no-repeat; background-position:right 14px center; background-size:16px;}
+
+  .submit-row{
+    display:flex; align-items:center; gap:18px;
+    margin-top:36px;
+    padding-top:26px;
+    border-top:1px solid var(--parchment-2);
+  }
+  .btn-submit{
+    background:var(--navy);
+    color:var(--white);
+    border:none;
+    padding:14px 30px;
+    font-size:1rem;
+    font-weight:600;
+    border-radius:var(--radius);
+    cursor:pointer;
+  }
+  .btn-submit:hover{background:var(--navy-deep);}
+  .submit-note{font-size:.82rem; color:var(--ink-soft);}
+
+  .form-success{
+    display:none;
+    background:var(--forest);
+    color:var(--white);
+    padding:22px 26px;
+    border-radius:var(--radius);
+    margin-top:26px;
+    font-size:.95rem;
+  }
+  .form-success.show{display:block;}
+  .form-success strong{display:block; font-family:'Libre Caslon Display', serif; font-size:1.1rem; margin-bottom:6px; font-weight:400;}
+
+  /* ---------- Footer ---------- */
+  footer.site{
+    background:var(--navy-deep);
+    color:#B9B29B;
+    padding:52px 0 34px;
+  }
+  .footer-grid{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    padding-bottom:28px;
+    border-bottom:1px solid rgba(185,178,155,.18);
+  }
+  .footer-brand{display:flex; align-items:center; gap:12px;}
+  .footer-brand .name{color:var(--parchment); font-family:'Libre Caslon Display', serif; font-size:1.05rem;}
+  .footer-links{display:flex; gap:32px; font-size:.88rem;}
+  .footer-links a{text-decoration:none; color:#B9B29B;}
+  .footer-links a:hover{color:var(--brass-light);}
+  .footer-bottom{
+    display:flex; justify-content:space-between;
+    padding-top:22px;
+    font-size:.8rem;
+    color:#8A836E;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:900px){
+    nav.links{display:none;}
+    .hero-grid{grid-template-columns:1fr; gap:44px;}
+    .hero h1{font-size:2.4rem; max-width:none;}
+    .step-list{grid-template-columns:1fr;}
+    .step{border-right:none; border-bottom:1px solid var(--parchment-2); padding:26px 0;}
+    .register-grid{grid-template-columns:1fr;}
+    .field-row{grid-template-columns:1fr;}
+    .form-card{padding:28px;}
+    .footer-grid{flex-direction:column; gap:18px;}
+    .footer-bottom{flex-direction:column; gap:8px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap site-nav">
+    <a class="brand" href="#top">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" stroke="#C9A75B" stroke-width="1.4"/>
+        <path d="M20 9 L29 14.5 V25.5 L20 31 L11 25.5 V14.5 Z" stroke="#C9A75B" stroke-width="1.2"/>
+        <path d="M20 15 L20 25 M15 20 L25 20" stroke="#C9A75B" stroke-width="1.2"/>
+      </svg>
+      <span class="brand-text">
+        <span class="name">Ashford College</span>
+        <span class="est">FOUNDED 1889</span>
+      </span>
+    </a>
+    <nav class="links">
+      <a href="#top">Home</a>
+      <a href="#steps">Admissions</a>
+      <a href="#register">Register</a>
+    </nav>
+    <a class="nav-cta" href="#register">Begin registration</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kicker-line"><span class="rule"></span> ENROLLMENT&nbsp;&mdash;&nbsp;FALL TERM</div>
+      <h1>Register your place at Ashford</h1>
+      <p class="lede">A few details are all it takes to open your file with the Office of Admissions. Complete the form below and a member of the enrollment team will confirm your place within two business days.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#register">Start registration</a>
+        <a class="btn-ghost" href="#steps">How it works</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="term">Current cycle</div>
+      <div class="figure">Fall 2026</div>
+      <hr>
+      <div class="panel-row"><span>Applications open</span><span>Aug 1</span></div>
+      <div class="panel-row"><span>Priority deadline</span><span>Sep 15</span></div>
+      <div class="panel-row"><span>Decisions released</span><span>Oct 3</span></div>
+      <div class="panel-row"><span>Registration fee</span><span>None</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="steps" id="steps">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Admissions process</div>
+      <h2>Three steps to a confirmed place</h2>
+      <p>Registration is the first record the Office of Admissions keeps on file. Everything after &mdash; interviews, orientation, your student card &mdash; is built on what you submit here.</p>
+    </div>
+    <div class="step-list">
+      <div class="step">
+        <span class="num">01</span>
+        <h3>Register your details</h3>
+        <p>Share your name and how we can reach you. This creates your admissions file.</p>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <h3>Confirm by phone or email</h3>
+        <p>A counselor verifies your details and answers any questions about the term ahead.</p>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <h3>Receive your enrollment pack</h3>
+        <p>Your welcome letter, orientation date, and student ID arrive within a week.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="register" id="register">
+  <div class="wrap register-grid">
+    <div class="register-aside">
+      <div class="eyebrow">Your details</div>
+      <h2>Tell us who's joining us</h2>
+      <p>Fields marked required are needed to open your file. The survey question at the end is optional and helps us tailor orientation to your class year.</p>
+      <ul class="aside-list">
+        <li><span class="mark">&#10003;</span> Takes about two minutes to complete</li>
+        <li><span class="mark">&#10003;</span> A counselor will confirm by phone or email</li>
+        <li><span class="mark">&#10003;</span> Your information is kept on file, not shared</li>
+      </ul>
+    </div>
+
+    <div>
+      <form class="form-card" id="reg-form" novalidate>
+        <div class="form-card-head">
+          <h3>Registration form</h3>
+          <span class="code">FORM AC&#8209;101</span>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="first-name">First name<span class="req">*</span></label>
+            <input type="text" id="first-name" name="first-name" autocomplete="given-name" aria-describedby="first-name-error" aria-invalid="false">
+            <p class="error-msg" id="first-name-error" role="alert">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+              <span>Enter your first name.</span>
+            </p>
+          </div>
+          <div class="field">
+            <label for="last-name">Last name<span class="req">*</span></label>
+            <input type="text" id="last-name" name="last-name" autocomplete="family-name" aria-describedby="last-name-error" aria-invalid="false">
+            <p class="error-msg" id="last-name-error" role="alert">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+              <span>Enter your last name.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="mobile">Mobile number<span class="req">*</span></label>
+          <input type="tel" id="mobile" name="mobile" autocomplete="tel" placeholder="e.g. 9876543210" aria-describedby="mobile-error" aria-invalid="false">
+          <p class="hint">Digits only, no spaces or symbols.</p>
+          <p class="error-msg" id="mobile-error" role="alert">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+            <span>Enter your mobile number using digits only.</span>
+          </p>
+        </div>
+
+        <div class="field">
+          <label for="email">Email address<span class="req">*</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" aria-describedby="email-error" aria-invalid="false">
+          <p class="error-msg" id="email-error" role="alert">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+            <span>Enter a valid email address, like you@example.com.</span>
+          </p>
+        </div>
+
+        <div class="field" style="margin-bottom:0;">
+          <label for="year">Year in college <span class="opt">(optional survey question)</span></label>
+          <select id="year" name="year">
+            <option value="">Prefer not to say</option>
+            <option value="freshman">Freshman &mdash; 1st year</option>
+            <option value="sophomore">Sophomore &mdash; 2nd year</option>
+            <option value="junior">Junior &mdash; 3rd year</option>
+            <option value="senior">Senior &mdash; 4th year</option>
+            <option value="graduate">Graduate student</option>
+          </select>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="btn-submit">Submit registration</button>
+          <span class="submit-note">No fee. You'll hear back within 2 business days.</span>
+        </div>
+
+        <div class="form-success" id="form-success" role="status">
+          <strong>Registration received</strong>
+          <span id="success-text"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <svg class="brand-mark" viewBox="0 0 40 40" fill="none" width="30" height="30">
+          <circle cx="20" cy="20" r="19" stroke="#C9A75B" stroke-width="1.4"/>
+          <path d="M20 9 L29 14.5 V25.5 L20 31 L11 25.5 V14.5 Z" stroke="#C9A75B" stroke-width="1.2"/>
+        </svg>
+        <span class="name">Ashford College &mdash; Office of Admissions</span>
+      </div>
+      <div class="footer-links">
+        <a href="#top">Home</a>
+        <a href="#steps">Admissions</a>
+        <a href="#register">Register</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Ashford College. This is a sample form built for demonstration.</span>
+      <span>Founded 1889</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const form = document.getElementById('reg-form');
+  const success = document.getElementById('form-success');
+  const successText = document.getElementById('success-text');
+
+  const fields = {
+    'first-name': {
+      el: document.getElementById('first-name'),
+      error: document.getElementById('first-name-error'),
+      validate: v => v.trim().length > 0
+    },
+    'last-name': {
+      el: document.getElementById('last-name'),
+      error: document.getElementById('last-name-error'),
+      validate: v => v.trim().length > 0
+    },
+    'mobile': {
+      el: document.getElementById('mobile'),
+      error: document.getElementById('mobile-error'),
+      validate: v => {
+        const trimmed = v.trim();
+        if(trimmed.length === 0) return false;
+        return /^[0-9]{7,15}$/.test(trimmed);
+      }
+    },
+    'email': {
+      el: document.getElementById('email'),
+      error: document.getElementById('email-error'),
+      validate: v => {
+        const trimmed = v.trim();
+        if(trimmed.length === 0) return false;
+        // standard, practical email pattern
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed);
+      }
+    }
+  };
+
+  function setInvalid(key, isInvalid){
+    const f = fields[key];
+    f.el.setAttribute('aria-invalid', isInvalid ? 'true' : 'false');
+    f.error.classList.toggle('show', isInvalid);
+  }
+
+  // Custom message for mobile: distinguish "empty" vs "not numeric"
+  function validateMobile(){
+    const v = fields.mobile.el.value.trim();
+    const msgEl = fields.mobile.error.querySelector('span');
+    if(v.length === 0){
+      msgEl.textContent = 'Enter your mobile number.';
+      setInvalid('mobile', true);
+      return false;
+    }
+    if(!/^[0-9]{7,15}$/.test(v)){
+      msgEl.textContent = 'Mobile number must contain digits only.';
+      setInvalid('mobile', true);
+      return false;
+    }
+    setInvalid('mobile', false);
+    return true;
+  }
+
+  function validateEmail(){
+    const v = fields.email.el.value.trim();
+    const msgEl = fields.email.error.querySelector('span');
+    if(v.length === 0){
+      msgEl.textContent = 'Enter your email address.';
+      setInvalid('email', true);
+      return false;
+    }
+    if(!fields.email.validate(v)){
+      msgEl.textContent = 'Enter a valid email address, like you@example.com.';
+      setInvalid('email', true);
+      return false;
+    }
+    setInvalid('email', false);
+    return true;
+  }
+
+  function validateSimple(key){
+    const ok = fields[key].validate(fields[key].el.value);
+    setInvalid(key, !ok);
+    return ok;
+  }
+
+  // live validation as user leaves a field
+  fields['first-name'].el.addEventListener('blur', () => validateSimple('first-name'));
+  fields['last-name'].el.addEventListener('blur', () => validateSimple('last-name'));
+  fields.mobile.el.addEventListener('blur', validateMobile);
+  fields.email.el.addEventListener('blur', validateEmail);
+
+  // clear error as soon as it's fixed
+  fields['first-name'].el.addEventListener('input', () => { if(fields['first-name'].el.value.trim()) setInvalid('first-name', false); });
+  fields['last-name'].el.addEventListener('input', () => { if(fields['last-name'].el.value.trim()) setInvalid('last-name', false); });
+  fields.mobile.el.addEventListener('input', () => { if(/^[0-9]{7,15}$/.test(fields.mobile.el.value.trim())) setInvalid('mobile', false); });
+  fields.email.el.addEventListener('input', () => { if(fields.email.validate(fields.email.el.value.trim())) setInvalid('email', false); });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    success.classList.remove('show');
+
+    const okFirst = validateSimple('first-name');
+    const okLast = validateSimple('last-name');
+    const okMobile = validateMobile();
+    const okEmail = validateEmail();
+
+    const allOk = okFirst && okLast && okMobile && okEmail;
+
+    if(!allOk){
+      const order = ['first-name','last-name','mobile','email'];
+      for(const key of order){
+        if(fields[key].el.getAttribute('aria-invalid') === 'true'){
+          fields[key].el.focus();
+          break;
+        }
+      }
+      return;
+    }
+
+    const firstName = fields['first-name'].el.value.trim();
+    const yearSelect = document.getElementById('year');
+    const yearLabel = yearSelect.options[yearSelect.selectedIndex].text;
+    const yearNote = yearSelect.value ? ` We've noted you're a ${yearLabel.toLowerCase()}.` : '';
+
+    successText.textContent = `Thank you, ${firstName}. Your registration has been recorded and a counselor will be in touch shortly.${yearNote}`;
+    success.classList.add('show');
+    form.reset();
+    // reset any invalid states left over
+    Object.keys(fields).forEach(k => setInvalid(k, false));
+    success.focus?.();
+  });
+})();
+</script>
+
+</body>
+</html>
